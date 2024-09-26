@@ -1,8 +1,8 @@
 <script setup>
-
+import { RouterView } from 'vue-router';
 </script>
 <template>
-    <div>
-        <h1>Laravel and Vue 3 Component</h1>
-    </div>
+    <RouterView>
+        
+    </RouterView>
 </template>
