@@ -1,18 +1,27 @@
 <script setup>
-import axios from 'axios';
-import { onMounted, ref } from 'vue';
 
-  const invoices = ref([]);
+    import axios from 'axios';
+    import { onMounted, ref } from 'vue';
 
-  onMounted(async () => {
-     getInvoices()
-  })
+    const invoices = ref([]);
+    onMounted(async () => {
+        getInvoices()
+    })
 
-  const getInvoices = async () =>{
-      let response = await axios.get('/api/get_all_invoice')
-      console.log(response)
-      invoices.value = response.data.invoices
-  }
+    const getInvoices = async () =>{
+        let response = await axios.get('/api/get_all_invoice')
+        // console.log(response)
+        invoices.value = response.data.invoices
+    }
+
+    // Input Search Working
+    let searchInvoice = ref([]);
+    const search = async () =>{
+        let response = await axios.get('/api/search_invoice?s='+searchInvoice.value)
+        // console.log(response.data.invoices);
+        invoices.value = response.data.invoices
+    }
+
 
 </script>
 <template>
@@ -59,7 +68,7 @@ import { onMounted, ref } from 'vue';
                   </div>
                   <div class="relative">
                       <i class="table--search--input--icon fas fa-search "></i>
-                      <input class="table--search--input" type="text" placeholder="Search invoice">
+                      <input class="table--search--input" type="text" placeholder="Search invoice" v-model="searchInvoice" @keyup="search()">
                   </div>
               </div>
 
@@ -82,11 +91,21 @@ import { onMounted, ref } from 'vue';
                   <p>{{ item.due_date }}</p>
                   <p> $ {{ item.total }}</p>
               </div>
-              <div class="table--items" v-else>
-                <p>Invoice is empty!</p> 
+              <div class="table--items text-center" v-else>
+                <p class="lead">Invoice is empty!</p> 
               </div>
           </div>
           
       </div>  
     </div>
 </template>
+<style lang="css">
+    .text-center{
+        text-align: center;
+    }
+    .lead{
+        font-size: 17px;
+        text-transform: capitalize;
+        color: #4d3dc7;
+    }
+</style>
