@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Invoice;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Counter;
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder
         Counter::factory(1)->create();
         Product::factory(5)->create();
         Customer::factory(5)->create();
+        Invoice::factory(10)->create();
 
         // User::factory()->create([
         //     'name' => 'Test User',
