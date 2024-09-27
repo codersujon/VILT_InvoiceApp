@@ -8,7 +8,7 @@
 
 body {
     
-    background: #6c5ce7;
+    background: #1e90ff;
     color:#FFF;
 
 }
@@ -84,12 +84,12 @@ h2 {
     color: #6a727a;
 }
 
-
 table {
     background: #f1f1f1;
     margin-top: 20px;
     margin-bottom: 30px;
 }
+
 .table--filter {
     border-bottom: 1px solid #e0e0e0;
     padding: 20px 30px;
@@ -273,6 +273,7 @@ ul {
 .table__footer--subtotal p {
     font-size: 20px;
 }
+
 .table__footer--subtotal span {
     font-size: 20px;
 }
@@ -401,11 +402,13 @@ ul {
     border-radius: 4px;
     cursor: pointer;
 }
+
 .btn-light {
     border: 1px solid #808891;
     background: white;
     color: #454f5b;
 }
+
 .mr-2 {
     margin-right: 20px;
 }
