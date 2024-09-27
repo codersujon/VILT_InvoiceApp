@@ -1,8 +1,33 @@
 <script setup>
+    import axios from 'axios';
+    import { onMounted, ref } from 'vue';
+
+    let form = ref([])
+    let allCustomers = ref([])
+    let customer_id = ref()
+
+    onMounted(async () => {
+        indexForm()
+        getAllCustomers()
+    })
+
+    const indexForm = async () =>{
+        let response = await axios.get('/api/create_invoice')
+        // console.log('form', response.data)
+        form.value = response.data
+    }
+
+    const getAllCustomers = async () =>{
+        let response = await axios.get('/api/customers')
+        // console.log('response', response)
+        allCustomers.value = response.data.customers
+    }
+
 
 </script>
 <template>
     <div class="container">
+
         <div class="invoices">
         
             <div class="card__header">
@@ -18,8 +43,9 @@
                 <div class="card__content--header">
                     <div>
                         <p class="my-1">Customer</p>
-                        <select name="" id="" class="input">
-                            <option value="">cust 1</option>
+                        <select name="" id="" class="input" v-model="customer_id">
+                            <option disabled>Select Customer</option>
+                            <option :value="customer.id" v-for="customer in allCustomers" :key="customer.id">{{ customer.firstname }}</option>
                         </select>
                     </div>
                     <div>
@@ -90,6 +116,7 @@
 
             
             </div>
+
             <div class="card__header" style="margin-top: 40px;">
                 <div>
                     
@@ -123,6 +150,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </template>
 
