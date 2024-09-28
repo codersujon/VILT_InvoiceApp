@@ -52,6 +52,7 @@
     const openModel = () =>{
         showModal.value =  !showModal.value
     }
+    
     const closeModal = () =>{
         showModal.value = !hideModal.value
     }
@@ -63,6 +64,19 @@
         listProducts.value = response.data.products
     }
 
+    //SubTotal
+    const SubTotal = () =>{
+        let total = 0
+        listCart.value.map((data)=>{
+            total = total + (data.quantity*data.unit_price)
+        });
+        return total
+    }
+
+    //Grand Total
+    const GrandTotal = () =>{
+        return SubTotal() - form.value.discount
+    }
     
 
 
@@ -139,20 +153,20 @@
                 <div class="table__footer">
                     <div class="document-footer" >
                         <p>Terms and Conditions</p>
-                        <textarea cols="50" rows="7" class="textarea" ></textarea>
+                        <textarea cols="50" rows="7" class="textarea" v-model="form.terms_and_conditions"></textarea>
                     </div>
                     <div>
                         <div class="table__footer--subtotal">
                             <p>Sub Total</p>
-                            <span>$ 1000</span>
+                            <span>$ {{ SubTotal() }}</span>
                         </div>
                         <div class="table__footer--discount">
                             <p>Discount</p>
-                            <input type="text" class="input">
+                            <input type="text" class="input" v-model="form.discount">
                         </div>
                         <div class="table__footer--total">
                             <p>Grand Total</p>
-                            <span>$ 1200</span>
+                            <span>$ {{ GrandTotal() }}</span>
                         </div>
                     </div>
                 </div>
