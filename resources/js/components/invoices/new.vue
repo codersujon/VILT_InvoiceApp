@@ -1,7 +1,10 @@
 <script setup>
     import axios from 'axios';
     import { onMounted, ref } from 'vue';
+    import { useRouter } from 'vue-router';
 
+    const router = useRouter()
+    
     let form = ref([])
     let allCustomers = ref([])
     let customer_id = ref([])
@@ -52,7 +55,7 @@
     const openModel = () =>{
         showModal.value =  !showModal.value
     }
-    
+
     const closeModal = () =>{
         showModal.value = !hideModal.value
     }
@@ -77,9 +80,34 @@
     const GrandTotal = () =>{
         return SubTotal() - form.value.discount
     }
+
+    // Save Invoice
+    const onSave = () =>{
+        if(listCart.value.length >= 1){
+            let subtotal = 0
+            subtotal = SubTotal()
+
+            let total = 0
+            total = GrandTotal()
+
+            const formData = new FormData()
+            formData.append('invoice_item', JSON.stringify(listCart.value))
+            formData.append('customer_id', customer_id.value)
+            formData.append('date', form.value.date)
+            formData.append('due_date', form.value.due_date)
+            formData.append('number', form.value.number)
+            formData.append('reference', form.value.reference)
+            formData.append('discount', form.value.discount)
+            formData.append('sub_total',subtotal)
+            formData.append('total', total)
+            formData.append('terms_and_conditions', form.value.terms_and_conditions)
+
+            axios.post('/api/add_invoice', formData)
+            listCart.value = []
+            router.push('/')
+        }
+    }
     
-
-
 </script>
 <template>
     <div class="container">
@@ -178,7 +206,7 @@
                     
                 </div>
                 <div>
-                    <a class="btn btn-secondary">
+                    <a class="btn btn-secondary" @click="onSave()">
                         Save
                     </a>
                 </div>
