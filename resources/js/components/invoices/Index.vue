@@ -31,7 +31,7 @@
     }
 
     const onShow = (id) =>{
-        router.push('/invoice/show/'+id)
+        router.push('/invoice/show/'+ id);
     }
 
 
