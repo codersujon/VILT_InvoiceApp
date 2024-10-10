@@ -21,6 +21,7 @@ Route::get('/show_invoice/{id}', [InvoiceController::class, 'show_invoice']);
 Route::get('/edit_invoice/{id}', [InvoiceController::class, 'edit_invoice']);
 Route::get('/delete_invoice_items/{id}', [InvoiceController::class, 'delete_invoice_items']);
 Route::post('/update_invoice/{id}', [InvoiceController::class, 'update_invoice']);
+Route::get('/delete_invoice/{id}', [InvoiceController::class, 'delete_invoice']);
 
 
 

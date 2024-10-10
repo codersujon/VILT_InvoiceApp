@@ -135,6 +135,9 @@ class InvoiceController extends Controller
         $invoiceItem->delete();
     }
 
+    /**
+     * 
+     */
     // Update Invoice
     public function update_invoice(Request $request, $id){
         $invoice = Invoice::where('id', $id)->first();
@@ -163,6 +166,15 @@ class InvoiceController extends Controller
 
             InvoiceItem::create($itemData);
         }
+    }
+
+    /**
+     * Delete Invoice
+     */
+    public function delete_invoice($id){
+        $invoice = Invoice::findOrFail($id);
+        $invoice->invoice_items()->delete();
+        $invoice->delete();
     }
 }
 
